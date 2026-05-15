@@ -1,2 +1,3 @@
-# PyOMod
-Python OpenSource Module Lib
+# MetaX
+MetaX Python OpenSource Module Lib
+

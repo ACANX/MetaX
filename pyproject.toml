@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools==69.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "metax"
+version = "0.1.0"
+description = "MetaOpen Python Language lib package"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    {name = "ACANX", email = "acanx@qq.com"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+
+[tool.setuptools]
+packages = ["metax"]
