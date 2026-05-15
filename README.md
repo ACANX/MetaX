@@ -181,8 +181,6 @@ print(metax.get_extension("test.txt"))  # 扩展名: .txt
 
 - **当前版本**：0.1.2
 - **Python版本**：>= 3.8
-- **作者**：ACANX
-- **邮箱**：acanx@qq.com
 
 ### 🌟 Star History
 
@@ -363,8 +361,6 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 - **Current Version**: 0.1.2
 - **Python Version**: >= 3.8
-- **Author**: ACANX
-- **Email**: acanx@qq.com
 
 ### 🌟 Star History
 
