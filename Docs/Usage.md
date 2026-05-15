@@ -39,7 +39,7 @@ python3 -c "import metax; print('MetaX版本:', metax.__version__)"
 
 输出示例：
 ```
-MetaX版本: 0.1.2
+MetaX版本: 0.1.4
 ```
 
 ---
@@ -246,7 +246,7 @@ metax.write_lines("lines.txt", lines)
 read_lines = metax.read_lines("lines.txt")
 
 # JSON文件操作
-data = {"name": "MetaX", "version": "0.1.2"}
+data = {"name": "MetaX", "version": "0.1.4"}
 metax.write_json("config.json", data)
 loaded_data = metax.read_json("config.json")
 
@@ -478,23 +478,4 @@ result: float = metax.add(1.5, 2.5)
 - [PyPI项目主页](https://pypi.org/project/metax/)
 - [GitHub仓库](https://github.com/ACANX/MetaX)
 - [问题反馈](https://github.com/ACANX/MetaX/issues)
-
----
-
-### 📝 更新日志
-
-#### v0.1.2 (2024-01-15)
-- ✨ 新增高级数学运算（幂、开方、三角函数、对数等）
-- ✨ 新增字符串格式化工具
-- ✨ 新增字符串验证工具
-- ✨ 新增日期时间工具
-- ✨ 新增文件操作工具
-- 🐛 修复除法运算的零除异常处理
-- 📝 完善文档和使用示例
-
-#### v0.1.1 (2024-01-15)
-- ✨ 新增基础数学运算（加减乘除）
-- 🎉 初始版本发布
-
-#### v0.1.0 (2024-01-15)
-- 🎉 项目初始化
+- [更新日志](../CHANGELOG.md)

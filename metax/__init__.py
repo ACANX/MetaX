@@ -37,7 +37,7 @@ from metax.util.file import (
     get_md5, get_sha256
 )
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 __author__ = "ACANX"
 
 __all__ = [

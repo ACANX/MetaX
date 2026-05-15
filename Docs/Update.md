@@ -256,13 +256,13 @@ Major.Minor.Patch
 ```toml
 [project]
 name = "metax"
-version = "0.1.3"  # 更新这里
+version = "0.1.4"  # 更新这里
 ```
 
 **文件2：metax/__init__.py**
 
 ```python
-__version__ = "0.1.3"  # 更新这里
+__version__ = "0.1.4"  # 更新这里
 ```
 
 #### 3.3 版本号更新命令
@@ -272,10 +272,10 @@ __version__ = "0.1.3"  # 更新这里
 ```bash
 # PowerShell
 # 更新pyproject.toml
-(Get-Content pyproject.toml) -replace 'version = "0.1.2"', 'version = "0.1.3"' | Set-Content pyproject.toml
+(Get-Content pyproject.toml) -replace 'version = "0.1.3"', 'version = "0.1.4"' | Set-Content pyproject.toml
 
 # 更新__init__.py
-(Get-Content metax/__init__.py) -replace '__version__ = "0.1.2"', '__version__ = "0.1.3"' | Set-Content metax/__init__.py
+(Get-Content metax/__init__.py) -replace '__version__ = "0.1.3"', '__version__ = "0.1.4"' | Set-Content metax/__init__.py
 ```
 
 ---
@@ -300,7 +300,7 @@ python3 -m build
 构建成功后会显示：
 
 ```
-Successfully built metax-0.1.3.tar.gz and metax-0.1.3-py3-none-any.whl
+Successfully built metax-0.1.4.tar.gz and metax-0.1.4-py3-none-any.whl
 ```
 
 #### 4.3 验证构建结果
@@ -316,8 +316,8 @@ ls dist/
 输出应该是：
 
 ```
-metax-0.1.3-py3-none-any.whl
-metax-0.1.3.tar.gz
+metax-0.1.4-py3-none-any.whl
+metax-0.1.4.tar.gz
 ```
 
 ---
@@ -334,13 +334,13 @@ python3 -m twine upload --repository testpypi dist/*
 
 ```
 Uploading distributions to https://test.pypi.org/legacy/
-Uploading metax-0.1.3-py3-none-any.whl
-100% ━━━━━━━━━━━━━━━━━━━━ 17.1/17.1 kB • 00:00 • 5.3 MB/s
-Uploading metax-0.1.3.tar.gz
-100% ━━━━━━━━━━━━━━━━━━━━ 17.5/17.5 kB • 00:00 • 6.9 MB/s
+Uploading metax-0.1.4-py3-none-any.whl
+100% ━━━━━━━━━━━━━━━━━━━━ 25.1/25.1 kB • 00:00 • 5.3 MB/s
+Uploading metax-0.1.4.tar.gz
+100% ━━━━━━━━━━━━━━━━━━━━ 25.3/25.3 kB • 00:00 • 6.9 MB/s
 
 View at:
-https://test.pypi.org/project/metax/0.1.3/
+https://test.pypi.org/project/metax/0.1.4/
 ```
 
 #### 5.2 常见错误处理
@@ -386,7 +386,7 @@ python3 -c "import metax; print('版本:', metax.__version__)"
 输出：
 
 ```
-版本: 0.1.3
+版本: 0.1.4
 ```
 
 #### 6.3 功能测试
@@ -434,13 +434,13 @@ python3 -m twine upload dist/*
 
 ```
 Uploading distributions to https://upload.pypi.org/legacy/
-Uploading metax-0.1.3-py3-none-any.whl
-100% ━━━━━━━━━━━━━━━━━━━━ 17.1/17.1 kB • 00:00 • 4.9 MB/s
-Uploading metax-0.1.3.tar.gz
-100% ━━━━━━━━━━━━━━━━━━━━ 17.5/17.5 kB • 00:00 • 7.3 MB/s
+Uploading metax-0.1.4-py3-none-any.whl
+100% ━━━━━━━━━━━━━━━━━━━━ 25.1/25.1 kB • 00:00 • 4.9 MB/s
+Uploading metax-0.1.4.tar.gz
+100% ━━━━━━━━━━━━━━━━━━━━ 25.3/25.3 kB • 00:00 • 7.3 MB/s
 
 View at:
-https://pypi.org/project/metax/0.1.3/
+https://pypi.org/project/metax/0.1.4/
 ```
 
 #### 7.3 查看发布结果
@@ -448,7 +448,7 @@ https://pypi.org/project/metax/0.1.3/
 访问PyPI项目页面：
 
 ```
-https://pypi.org/project/metax/0.1.3/
+https://pypi.org/project/metax/0.1.4/
 ```
 
 ---
@@ -515,16 +515,14 @@ Bad Request
 ERROR InvalidDistribution: Invalid distribution metadata: unrecognized or malformed field 'license-file'
 ```
 
-**原因**：setuptools版本过高（82.x），使用了不兼容的元数据格式
+**原因**：`packaging` 库版本过低（< 26.x），不认识 Metadata-Version 2.4 的 `License-File` 字段
 
 **解决方案**：
 
-修改 `pyproject.toml`：
+升级 `packaging` 库（而非降级 setuptools）：
 
-```toml
-[build-system]
-requires = ["setuptools==69.0.0", "wheel"]
-build-backend = "setuptools.build_meta"
+```bash
+python3 -m pip install --upgrade packaging
 ```
 
 #### Q3: twine版本过低
@@ -701,14 +699,14 @@ Write-ColorOutput Yellow "2. 测试通过后上传到PyPI: python3 -m twine uplo
 **使用方法**：
 
 ```powershell
-# 更新到0.1.3版本
-.\update.ps1 -Version "0.1.3"
+# 更新到0.1.4版本
+.\update.ps1 -Version "0.1.4"
 
 # 跳过测试
-.\update.ps1 -Version "0.1.3" -SkipTest
+.\update.ps1 -Version "0.1.4" -SkipTest
 
 # 跳过构建
-.\update.ps1 -Version "0.1.3" -SkipBuild
+.\update.ps1 -Version "0.1.4" -SkipBuild
 ```
 
 ---
@@ -720,7 +718,7 @@ Write-ColorOutput Yellow "2. 测试通过后上传到PyPI: python3 -m twine uplo
 ```markdown
 # 更新日志
 
-## [0.1.3] - 2024-01-15
+## [0.1.4] - 2026-05-15
 
 ### 新增
 - ✨ 新增xxx功能

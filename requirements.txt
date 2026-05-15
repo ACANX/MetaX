@@ -1,0 +1,10 @@
+# 构建工具
+setuptools>=78.1.1
+wheel>=0.47.0
+build>=1.3.0
+
+# 发布工具
+twine>=6.2.0
+
+# 元数据解析（需 >= 26.x 以支持 Metadata-Version 2.4）
+packaging>=26.2
