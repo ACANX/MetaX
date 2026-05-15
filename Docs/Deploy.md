@@ -48,7 +48,7 @@ MetaX/
 
 ```toml
 [build-system]
-requires = ["setuptools==69.0.0", "wheel"]
+requires = ["setuptools>=78.1.1", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -57,6 +57,8 @@ version = "0.1.2"
 description = "MetaOpen Python Language lib package"
 readme = "README.md"
 requires-python = ">=3.8"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     {name = "ACANX", email = "acanx@qq.com"}
 ]
@@ -71,16 +73,20 @@ packages = ["metax"]
 
 #### ⚠️ 重要说明（踩坑记录）
 
-1. **setuptools版本必须锁定为69.0.0**
-   - 最新版setuptools（82.x）使用Metadata-Version 2.4，会导致twine验证失败
-   - 错误信息：`Invalid distribution metadata: unrecognized or malformed field 'license-file'`
-   - 解决方案：使用 `setuptools==69.0.0`
+1. **setuptools版本建议≥78.1.1**
+   - `>=78.1.1` 兼容新版 Metadata-Version 2.4，配合 `packaging>=26.2` 即可通过 twine 校验
+   - 不要锁定旧版 `setuptools==69.0.0`（过时且缺少新特性）
 
-2. **build-backend必须使用setuptools.build_meta**
+2. **license 配置使用 SPDX 表达式**
+   - 推荐格式：`license = "MIT"`（SPDX 表达式字符串，参见 [PEP 639](https://peps.python.org/pep-0639/)）
+   - 旧格式 `license = {file = "LICENSE"}` 已弃用，setuptools 77+ 会打印 DeprecationWarning
+   - 可使用 `license-files = ["LICENSE"]` 显式声明许可证文件
+
+3. **build-backend必须使用setuptools.build_meta**
    - 不要使用 `setuptools.backends._legacy:_Backend`（已废弃）
    - 不要使用 `setuptools.build_meta:__legacy__`（有兼容性问题）
 
-3. **明确指定packages**
+4. **明确指定packages**
    - 使用 `[tool.setuptools]` 配置明确指定包名
    - 避免自动发现时包含不需要的目录（如Docs目录）
 
@@ -194,9 +200,9 @@ python3 -m twine upload --repository testpypi dist/*
 - 原因：版本号已存在
 - 解决：更新 `pyproject.toml` 中的 `version` 字段
 
-**错误2：Invalid distribution metadata**
-- 原因：setuptools版本过高，使用了不兼容的元数据格式
-- 解决：使用 `setuptools==69.0.0`
+**错误2：twine check 元数据验证失败**
+- 原因：`packaging` 库版本过低（< 26.x），不认识 Metadata-Version 2.4 的 `License-File` 字段
+- 解决：升级 `packaging` 到最新版（`python3 -m pip install --upgrade packaging`），而非降级 setuptools
 
 #### 验证安装
 
@@ -298,8 +304,8 @@ python3 -m pip install metax --upgrade --quiet; python3 -c "import metax; print(
 ### 🚨 常见问题汇总
 
 #### Q1: twine check报错 "Invalid distribution metadata"
-**原因**：setuptools版本过高（82.x），使用了Metadata-Version 2.4
-**解决**：使用 `setuptools==69.0.0`
+**原因**：`packaging` 库版本过低（< 26.x），不认识 Metadata-Version 2.4 的 `License-File` 字段
+**解决**：升级 `packaging` 库：`python3 -m pip install --upgrade packaging`
 
 #### Q2: twine命令找不到或版本过低
 **原因**：系统同时安装了Python 2.7和Python 3
